@@ -2,8 +2,10 @@ Makefile
 _libft
 _printf
 bb
+bbb
 dd
 draw.excalidraw
 include
 pipex
+pp
 src

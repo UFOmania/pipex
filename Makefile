@@ -1,7 +1,7 @@
 
 # CFLAGS = -Wall -Wextra -Werror
 NAME=pipex
-CFLAGS = -fsanitize=address -g3
+# CFLAGS = -fsanitize=address -g3
 
 LIBFT = _libft/libft.a
 PRINTF = _printf/libftprintf.a
@@ -10,6 +10,7 @@ SRC =	src/pipex.c\
 		src/parser.c\
 		src/execute.c\
 		src/debuger.c\
+		src/clean.c\
 
 OBJ = $(SRC:.c=.o)
 

@@ -6,7 +6,7 @@
 /*   By: massrayb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 02:29:33 by massrayb          #+#    #+#             */
-/*   Updated: 2025/03/04 17:32:19 by massrayb         ###   ########.fr       */
+/*   Updated: 2025/03/05 21:03:24 by massrayb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,26 +57,28 @@ static char	*generate_cmd_path(char **env_paths, char *cmd)
 char	**get_paths(char **env)
 {
 	int		i;
+	char 	**paths;
 
+	paths = NULL;
 	i = get_path_index(env);
 	if (i != -1)
-		return (ft_split(env[i], ':'));
-	return (NULL);
+		paths = ft_split(env[i] + SKIP_PATH, ':');
+	return (paths);
 }
 
-void absolute_path(t_data *data)
+int	absolute_path(char **args)
 {
 	char	*path;
 
-	path = data->cmd_1_args[0];
-	data->cmd_1_path = path;
-	data->cmd_1_args[0] = ft_strdup(ft_strrchr(path, '/') + 1);
-	if (data->cmd_1_args[0] == NULL)
+	path = args[0];
+	args[0] = ft_strdup(ft_strrchr(path, '/') + 1);
+	free(path);
+	if (args[0] == NULL)
 	{
-		//failed
 		put_std_err(NULL);
-		exit (EXIT_FAILURE);
+		return (-1);
 	}
+	return (1);
 }
 
 //parse commands arguments
@@ -90,15 +92,26 @@ void parse_arguments(t_data *data, char **av, char **env)
 	
 	data->cmd_1_args = ft_split(av[CMD_1], ' ');
 	if (data->cmd_1_args[0][0] == '/')
-		absolute_path(data);
-	else
-		data->cmd_1_path = generate_cmd_path(env_paths, data->cmd_1_args[0]);
+	{
+		if (absolute_path(data->cmd_1_args) == -1)
+			clean_and_exit(data, EXIT_FAILURE);
+	}
+	data->cmd_1_path = generate_cmd_path(env_paths, data->cmd_1_args[0]);
+	// p("%s  %s\n",data->cmd_1_args[0], data->cmd_1_path);
 	
 	data->cmd_2_args = ft_split(av[CMD_2], ' ');
 	if (data->cmd_2_args[0][0] == '/')
-		absolute_path(data);
-	else
-		data->cmd_2_path = generate_cmd_path(env_paths, data->cmd_2_args[0]);
+	{
+		if (absolute_path(data->cmd_2_args) == -1)
+			clean_and_exit(data, EXIT_FAILURE);
+	}
 	data->cmd_2_path = generate_cmd_path(env_paths, data->cmd_2_args[0]);
+
+
+	int i = -1;
+	while (env_paths[++i])
+		free(env_paths[i]);
+	free(env_paths);
+	
 }
 

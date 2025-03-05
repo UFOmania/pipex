@@ -6,7 +6,7 @@
 /*   By: massrayb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 17:50:13 by massrayb          #+#    #+#             */
-/*   Updated: 2025/03/04 17:21:53 by massrayb         ###   ########.fr       */
+/*   Updated: 2025/03/05 22:10:56 by massrayb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,21 +51,31 @@ int create_pipe(t_data *data)
 	return (1);
 }
 
+void f(){system("leaks pipex");}
+
 int	main(int ac, char **av, char **env)
 {
+	// atexit(f);
 	t_data	data;
-	int state = 0;
+	pid_t	last_pid;
 
+	int state = 0;
 	data.file1 = av[1];
 	data.file2 = av[4];
 	data.id = getpid();
 	parse_arguments(&data, av, env);
 	if (create_pipe(&data) == 0)
 		return (ft_putendl_fd("pipex: error : Couldn't create the pipe", 2), 1);
-	print_args(&data);
-
-	execute_command_1(&data, env);
-	execute_command_2(&data, env);
+	// print_args(&data);
+	// execute_command_1(&data, env);
+	// execute_command_2(&data, env);
+	execute_command(&data, env, data.cmd_1_path, data.cmd_1_args, 1);
+	execute_command(&data, env, data.cmd_2_path, data.cmd_2_args, 2);
+	waitpid(data.id, &data.state, 0);
+	while (wait(NULL) == -1)
+		;
+	clean_and_exit(&data, WEXITSTATUS(data.state));
+	// return (WEXITSTATUS(data.state));
 	// int new_fd;
 	// if(data.id != 0)
 	// 	data.id = fork();
