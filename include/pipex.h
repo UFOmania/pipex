@@ -6,7 +6,7 @@
 /*   By: massrayb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 18:35:57 by massrayb          #+#    #+#             */
-/*   Updated: 2025/03/05 22:12:32 by massrayb         ###   ########.fr       */
+/*   Updated: 2025/03/06 00:26:25 by massrayb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	parse_arguments(t_data *data, char **av, char **env);
 char	**get_paths(char **env);
 void	execute_command_1(t_data *data, char **env);
 pid_t	execute_command_2(t_data *data, char **env);
-void execute_command(t_data *data, char **env, char *cmd_path, char **cmd_args, int flag);
+void execute_command(t_data *data, char **env, int flag);
 void	put_std_err(char *msg);
 void	print_args(t_data *data);
 

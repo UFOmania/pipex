@@ -6,7 +6,7 @@
 /*   By: massrayb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 02:29:33 by massrayb          #+#    #+#             */
-/*   Updated: 2025/03/05 21:03:24 by massrayb         ###   ########.fr       */
+/*   Updated: 2025/03/06 01:48:10 by massrayb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,9 +106,8 @@ void parse_arguments(t_data *data, char **av, char **env)
 			clean_and_exit(data, EXIT_FAILURE);
 	}
 	data->cmd_2_path = generate_cmd_path(env_paths, data->cmd_2_args[0]);
-
-
 	int i = -1;
+
 	while (env_paths[++i])
 		free(env_paths[i]);
 	free(env_paths);

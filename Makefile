@@ -1,7 +1,7 @@
 
 # CFLAGS = -Wall -Wextra -Werror
 NAME=pipex
-# CFLAGS = -fsanitize=address -g3
+CFLAGS = -fsanitize=address -g3
 
 LIBFT = _libft/libft.a
 PRINTF = _printf/libftprintf.a

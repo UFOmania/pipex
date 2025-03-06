@@ -6,7 +6,7 @@
 /*   By: massrayb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 17:50:13 by massrayb          #+#    #+#             */
-/*   Updated: 2025/03/05 22:10:56 by massrayb         ###   ########.fr       */
+/*   Updated: 2025/03/06 01:21:37 by massrayb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,10 @@ void	put_std_err(char *msg)
 	ft_putstr_fd("pipex: ", 2);
 	if (msg)
 	{
-		ft_putstr_fd(msg, 2);
-		ft_putstr_fd(": ", 2);
+		ft_putendl_fd(msg, 2);
+		// ft_putstr_fd(": ", 2);
 	}
-	ft_putendl_fd(strerror(errno), 2);
+	// ft_putendl_fd(strerror(errno), 2);
 }
 int create_pipe(t_data *data)
 {
@@ -69,8 +69,10 @@ int	main(int ac, char **av, char **env)
 	// print_args(&data);
 	// execute_command_1(&data, env);
 	// execute_command_2(&data, env);
-	execute_command(&data, env, data.cmd_1_path, data.cmd_1_args, 1);
-	execute_command(&data, env, data.cmd_2_path, data.cmd_2_args, 2);
+	execute_command(&data, env, 1);
+	close(data.fd[1]);
+	execute_command(&data, env, 2);
+	close(data.fd[0]);
 	waitpid(data.id, &data.state, 0);
 	while (wait(NULL) == -1)
 		;
