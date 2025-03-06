@@ -6,7 +6,7 @@
 /*   By: massrayb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 03:16:27 by massrayb          #+#    #+#             */
-/*   Updated: 2025/03/06 01:52:31 by massrayb         ###   ########.fr       */
+/*   Updated: 2025/03/06 17:29:30 by massrayb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ void	execute_command(t_data *data, char **env, int flag)
 			if (new_fd == -1)
 				(put_std_err(strerror(errno)), clean_and_exit(data, EXIT_FAILURE));
 			config_pipe(data, new_fd, flag);
-			if (execve(data->cmd_1_path, data->cmd_1_args, env) == -1)
-				(put_std_err("Command not found"), clean_and_exit(data, EXIT_FAILURE));
+			execve(data->cmd_1_path, data->cmd_1_args, env);
+			(put_std_err("Command not found"), clean_and_exit(data, EXIT_FAILURE));
 		}
 		else if (flag == 2)
 		{
@@ -60,8 +60,8 @@ void	execute_command(t_data *data, char **env, int flag)
 			if (new_fd == -1)
 				(put_std_err(strerror(errno)), clean_and_exit(data, EXIT_FAILURE));
 			config_pipe(data, new_fd, flag);
-			if (execve(data->cmd_2_path, data->cmd_2_args, env) == -1)
-				(put_std_err("Command not found"), clean_and_exit(data, EXIT_FAILURE));
+			execve(data->cmd_2_path, data->cmd_2_args, env);
+			(put_std_err("Command not found"), clean_and_exit(data, EXIT_FAILURE));
 		}
 	}
 }

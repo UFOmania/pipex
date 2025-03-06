@@ -6,7 +6,7 @@
 /*   By: massrayb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 18:35:57 by massrayb          #+#    #+#             */
-/*   Updated: 2025/03/06 00:26:25 by massrayb         ###   ########.fr       */
+/*   Updated: 2025/03/06 17:46:09 by massrayb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define PIPEX_H
 
 # include "../_libft/libft.h"
-# include "../_libft/get_next_line.h"
 # include "../_printf/ft_printf.h"
 # include <errno.h>
 # include <fcntl.h>
