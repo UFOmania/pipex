@@ -6,7 +6,7 @@
 /*   By: massrayb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 18:35:57 by massrayb          #+#    #+#             */
-/*   Updated: 2025/03/07 01:24:12 by massrayb         ###   ########.fr       */
+/*   Updated: 2025/03/07 05:37:42 by massrayb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,12 @@
 
 typedef struct s_data
 {
+	char	*cmd_1;
+	char	*cmd_2;
 	char	*cmd_1_path;
 	char	*cmd_2_path;
 	char	**cmd_1_args;
 	char	**cmd_2_args;
-	char	*cmd_1;
-	char	*cmd_2;
 	char	*file1;
 	char	*file2;
 	int		state;
@@ -47,8 +47,7 @@ typedef struct s_data
 void	parse_arguments(t_data *data, char **av, char **env);
 char	**get_paths(char **env);
 void	execute_command_1(t_data *data, char **env);
-pid_t	execute_command_2(t_data *data, char **env);
-void	execute_command(t_data *data, char **env, int flag);
+void	execute_command_2(t_data *data, char **env);
 void	put_std_err(char *msg);
 void	clean_and_exit(t_data *data, int state);
 #endif

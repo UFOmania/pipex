@@ -6,7 +6,7 @@
 /*   By: massrayb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 02:29:33 by massrayb          #+#    #+#             */
-/*   Updated: 2025/03/07 01:51:27 by massrayb         ###   ########.fr       */
+/*   Updated: 2025/03/07 06:21:55 by massrayb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,20 +32,16 @@ static char	*generate_cmd_path(char **env_paths, char *cmd)
 	char	*tmp;
 	int		i;
 
-	if (cmd == NULL || ft_strchr(cmd, '/') != 0)
-		return (cmd);
 	i = 0;
 	while (env_paths[i])
 	{
 		tmp = ft_strjoin(env_paths[i], "/");
 		if (!tmp)
-			return (ft_putstr_fd("Error: ", 2), \
-			ft_putendl_fd(strerror(errno), 2), NULL);
+			return (put_std_err(NULL), NULL);
 		full_path = ft_strjoin(tmp, cmd);
 		free(tmp);
 		if (!full_path)
-			return (ft_putstr_fd("Error: ", 2), \
-			ft_putendl_fd(strerror(errno), 2), NULL);
+			return (put_std_err(NULL), NULL);
 		if (access(full_path, X_OK) == 0)
 			return (full_path);
 		free(full_path);
@@ -66,22 +62,30 @@ char	**get_paths(char **env)
 	return (paths);
 }
 
-int	absolute_path(char **args)
+static void	handle_absolute_path(t_data *data, int flag)
 {
 	char	*path;
 
-	path = args[0];
-	args[0] = ft_strdup(ft_strrchr(path, '/') + 1);
-	free(path);
-	if (args[0] == NULL)
+	if (flag == 1)
 	{
-		put_std_err(NULL);
-		return (-1);
+		path = data->cmd_1_args[0];
+		data->cmd_1_args[0] = ft_strdup(ft_strrchr(path, '/') + 1);
+		if (data->cmd_1_args[0] == NULL)
+			(put_std_err(data->cmd_1_args[0]), free(path), \
+			clean_and_exit(data, EXIT_FAILURE));
+		data->cmd_1_path = path;
 	}
-	return (1);
+	else if (flag == 2)
+	{
+		path = data->cmd_2_args[0];
+		data->cmd_2_args[0] = ft_strdup(ft_strrchr(path, '/') + 1);
+		if (data->cmd_2_args[0] == NULL)
+			(put_std_err(data->cmd_2_args[0]), free(path), \
+			clean_and_exit(data, EXIT_FAILURE));
+		data->cmd_2_path = path;
+	}
 }
 
-//parse commands arguments
 void	parse_arguments(t_data *data, char **av, char **env)
 {
 	char	**env_paths;
@@ -90,27 +94,16 @@ void	parse_arguments(t_data *data, char **av, char **env)
 	env_paths = get_paths(env);
 	if (env_paths == NULL)
 		(ft_putendl_fd("pipex: PATH not found at env", 2), exit (1));
-
-
 	data->cmd_1_args = ft_split(av[CMD_1], ' ');
 	if (data->cmd_1_args[0] && data->cmd_1_args[0][0] == '/')
-	{
-		if (absolute_path(data->cmd_1_args) == -1)
-			clean_and_exit(data, EXIT_FAILURE);
-	}
-	data->cmd_1_path = generate_cmd_path(env_paths, data->cmd_1_args[0]);
-
-
-	
+		handle_absolute_path(data, 1);
+	else
+		data->cmd_1_path = generate_cmd_path(env_paths, data->cmd_1_args[0]);
 	data->cmd_2_args = ft_split(av[CMD_2], ' ');
 	if (data->cmd_2_args[0] && data->cmd_2_args[0][0] == '/')
-	{
-		if (absolute_path(data->cmd_2_args) == -1)
-			clean_and_exit(data, EXIT_FAILURE);
-	}
-	data->cmd_2_path = generate_cmd_path(env_paths, data->cmd_2_args[0]);
-
-
+		handle_absolute_path(data, 2);
+	else
+		data->cmd_2_path = generate_cmd_path(env_paths, data->cmd_2_args[0]);
 	i = -1;
 	while (env_paths[++i])
 		free(env_paths[i]);
