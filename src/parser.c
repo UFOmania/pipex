@@ -6,7 +6,7 @@
 /*   By: massrayb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 02:29:33 by massrayb          #+#    #+#             */
-/*   Updated: 2025/03/07 06:21:55 by massrayb         ###   ########.fr       */
+/*   Updated: 2025/03/07 06:39:27 by massrayb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void	parse_arguments(t_data *data, char **av, char **env)
 
 	env_paths = get_paths(env);
 	if (env_paths == NULL)
-		(ft_putendl_fd("pipex: PATH not found at env", 2), exit (1));
+		(ft_putendl_fd(ENV_NOT_FOUND, 2), exit (1));
 	data->cmd_1_args = ft_split(av[CMD_1], ' ');
 	if (data->cmd_1_args[0] && data->cmd_1_args[0][0] == '/')
 		handle_absolute_path(data, 1);

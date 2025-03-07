@@ -6,7 +6,7 @@
 /*   By: massrayb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 18:35:57 by massrayb          #+#    #+#             */
-/*   Updated: 2025/03/07 05:37:42 by massrayb         ###   ########.fr       */
+/*   Updated: 2025/03/07 06:37:19 by massrayb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 # include <fcntl.h>
 # include <string.h>
 # include <unistd.h>
-# include <stdio.h>
 
 # define FILE_1 1
 # define FILE_2 4
@@ -31,8 +30,6 @@
 
 typedef struct s_data
 {
-	char	*cmd_1;
-	char	*cmd_2;
 	char	*cmd_1_path;
 	char	*cmd_2_path;
 	char	**cmd_1_args;

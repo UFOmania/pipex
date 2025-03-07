@@ -6,7 +6,7 @@
 /*   By: massrayb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 17:50:13 by massrayb          #+#    #+#             */
-/*   Updated: 2025/03/07 06:30:06 by massrayb         ###   ########.fr       */
+/*   Updated: 2025/03/07 06:38:15 by massrayb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,11 @@ int	main(int ac, char **av, char **env)
 {
 	t_data	data;
 
-	data = (t_data){0};
 	if (ac != 5)
 		return (ft_putendl_fd("pipex: error: arguments count must be 5", 2), 1);
-	data.file1 = av[1];
-	data.file2 = av[4];
-	data.cmd_1 = av[2];
-	data.cmd_2 = av[3];
-	data.id = getpid();
+	data = (t_data){0};
+	data.file1 = av[FILE_1];
+	data.file2 = av[FILE_2];
 	parse_arguments(&data, av, env);
 	if (create_pipe(&data) == 0)
 		return (ft_putendl_fd("pipex: error : Couldn't create the pipe", 2), 1);
