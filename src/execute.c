@@ -6,20 +6,20 @@
 /*   By: massrayb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 03:16:27 by massrayb          #+#    #+#             */
-/*   Updated: 2025/03/07 06:29:52 by massrayb         ###   ########.fr       */
+/*   Updated: 2025/03/07 20:09:00 by massrayb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/pipex.h"
+#include "pipex.h"
 
 static void	config_pipe(t_data *data, int new_fd, int flag)
 {
 	if (flag == 1)
 	{
 		if (dup2(new_fd, STDIN_FILENO) == -1)
-			(perror(strerror(errno)), clean_and_exit(data, EXIT_FAILURE));
+			(put_std_err(NULL), clean_and_exit(data, EXIT_FAILURE));
 		if (dup2(data->fd[1], STDOUT_FILENO) == -1)
-			(perror(strerror(errno)), clean_and_exit(data, EXIT_FAILURE));
+			(put_std_err(NULL), clean_and_exit(data, EXIT_FAILURE));
 		close(new_fd);
 		close(data->fd[0]);
 		close(data->fd[1]);
@@ -27,9 +27,9 @@ static void	config_pipe(t_data *data, int new_fd, int flag)
 	else if (flag == 2)
 	{
 		if (dup2(data->fd[0], STDIN_FILENO) == -1)
-			(perror(strerror(errno)), clean_and_exit(data, EXIT_FAILURE));
+			(put_std_err(NULL), clean_and_exit(data, EXIT_FAILURE));
 		if (dup2(new_fd, STDOUT_FILENO) == -1)
-			(perror(strerror(errno)), clean_and_exit(data, EXIT_FAILURE));
+			(put_std_err(NULL), clean_and_exit(data, EXIT_FAILURE));
 		close(new_fd);
 		close(data->fd[0]);
 		close(data->fd[1]);
@@ -55,7 +55,7 @@ void	execute_command_1(t_data *data, char **env)
 
 	data->id = fork();
 	if (data->id == -1)
-		(perror(NULL), clean_and_exit(data, EXIT_FAILURE));
+		(put_std_err(NULL), clean_and_exit(data, EXIT_FAILURE));
 	else if (data->id == 0)
 	{
 		if (data->cmd_1_path == NULL)
@@ -77,7 +77,7 @@ void	execute_command_2(t_data *data, char **env)
 
 	data->id = fork();
 	if (data->id == -1)
-		(perror(NULL), clean_and_exit(data, EXIT_FAILURE));
+		(put_std_err(NULL), clean_and_exit(data, EXIT_FAILURE));
 	else if (data->id == 0)
 	{
 		if (data->cmd_2_path == NULL)

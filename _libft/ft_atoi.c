@@ -6,7 +6,7 @@
 /*   By: massrayb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 11:37:13 by massrayb          #+#    #+#             */
-/*   Updated: 2025/02/27 09:02:24 by massrayb         ###   ########.fr       */
+/*   Updated: 2025/03/07 20:00:23 by massrayb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ static long	handle_numbers(const char *s, int index, int sign)
 		res *= 10;
 		res += (s[index] - '0');
 		index++;
-		if((res  *sign) > INT_MAX || (res * sign) < INT_MIN)
-            return(LONG_MAX);
+		if ((res * sign) > INT_MAX || (res * sign) < INT_MIN)
+			return (LONG_MAX);
 	}
 	return (res * sign);
 }

@@ -6,11 +6,11 @@
 /*   By: massrayb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 17:50:13 by massrayb          #+#    #+#             */
-/*   Updated: 2025/03/07 06:38:15 by massrayb         ###   ########.fr       */
+/*   Updated: 2025/03/07 20:08:48 by massrayb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/pipex.h"
+#include "pipex.h"
 
 void	put_std_err(char *msg)
 {

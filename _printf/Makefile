@@ -6,7 +6,7 @@
 #    By: massrayb <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/19 19:29:24 by massrayb          #+#    #+#              #
-#    Updated: 2024/12/21 10:15:41 by massrayb         ###   ########.fr        #
+#    Updated: 2025/03/07 20:02:38 by massrayb         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,9 +38,5 @@ $(NAME): $(OBJ)
 	$(CC) $(FLAGS) -c $<
 
 clean:
-	rm -f $(OBJ)
+	rm -f $(OBJ) $(NAME)
 
-fclean:	clean
-	rm -f $(NAME)
-
-re:		fclean all

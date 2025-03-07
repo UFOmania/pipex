@@ -47,13 +47,9 @@ all: $(NAME)
 $(NAME): $(OBJ)
 	$(AR) $(NAME) $(OBJ)
 	
-%.o: %.c libft.h get_next_line.h
+%.o: %.c libft.h
 	$(CC) $(CFLAGS) -c $<
 
 clean:
-	$(RM) $(OBJ)
+	$(RM) $(OBJ) $(NAME)
 
-fclean: clean
-	$(RM) libft.a
-
-re: fclean all

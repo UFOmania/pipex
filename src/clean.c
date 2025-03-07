@@ -6,11 +6,11 @@
 /*   By: massrayb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 19:48:13 by massrayb          #+#    #+#             */
-/*   Updated: 2025/03/06 18:02:52 by massrayb         ###   ########.fr       */
+/*   Updated: 2025/03/07 20:09:09 by massrayb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/pipex.h"
+#include "pipex.h"
 
 void	clean_and_exit(t_data *data, int state)
 {

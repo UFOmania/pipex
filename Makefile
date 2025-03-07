@@ -1,16 +1,15 @@
-CFLAGS =  -Wall -Wextra -Wall
-NAME=pipex
+CFLAGS = -Wall -Wextra -Wall
+NAME = pipex
 
 LIBFT = _libft/libft.a
 PRINTF = _printf/libftprintf.a
 
-SRC =	src/pipex.c\
-		src/parser.c\
-		src/execute.c\
-		src/clean.c\
+SRC = src/pipex.c \
+      src/parser.c \
+      src/execute.c \
+      src/clean.c
 
 OBJ = $(SRC:.c=.o)
-
 
 all: libft printf $(NAME)
 
@@ -20,19 +19,18 @@ libft:
 printf:
 	make -C _printf/
 
-$(NAME): $(OBJ) 
-	cc $(CFLAGS) $(LIBFT) $(PRINTF) $(OBJ) -o $@
+$(NAME): $(OBJ)
+	cc $(CFLAGS) $(OBJ) $(LIBFT) $(PRINTF) -o $@
 
-src/%.o: %.c include/pipex.h
-	cc $(CFLAGS) -c $<
+src/%.o: src/%.c src/pipex.h
+	cc $(CFLAGS) -c $< -o $@
 
 clean:
-	make fclean -C _libft
-	make fclean -C _printf
+	make clean -C _libft
+	make clean -C _printf
 	rm -rf $(OBJ)
 
-re: fclean all
-
 fclean: clean
-	$(RM) $(NAME) $(LIBFT) $(LIBFT)
+	rm -f $(NAME) $(LIBFT) $(PRINTF)
 
+re: fclean all

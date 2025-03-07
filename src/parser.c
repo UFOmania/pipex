@@ -6,11 +6,11 @@
 /*   By: massrayb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 02:29:33 by massrayb          #+#    #+#             */
-/*   Updated: 2025/03/07 06:39:27 by massrayb         ###   ########.fr       */
+/*   Updated: 2025/03/07 20:08:54 by massrayb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/pipex.h"
+#include "pipex.h"
 
 static int	get_path_index(char **env)
 {
