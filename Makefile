@@ -1,7 +1,5 @@
-
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS =  -fsanitize=address -g3
 NAME=pipex
-# CFLAGS = -fsanitize=address -g3
 
 LIBFT = _libft/libft.a
 PRINTF = _printf/libftprintf.a
@@ -9,7 +7,6 @@ PRINTF = _printf/libftprintf.a
 SRC =	src/pipex.c\
 		src/parser.c\
 		src/execute.c\
-		src/debuger.c\
 		src/clean.c\
 
 OBJ = $(SRC:.c=.o)
@@ -30,8 +27,8 @@ src/%.o: %.c include/pipex.h
 	cc $(CFLAGS) -c $<
 
 clean:
-	make clean -C _libft
-	make clean -C _printf
+	make fclean -C _libft
+	make fclean -C _printf
 	rm -rf $(OBJ)
 
 re: fclean all
