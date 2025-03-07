@@ -6,7 +6,7 @@
 /*   By: massrayb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 03:16:27 by massrayb          #+#    #+#             */
-/*   Updated: 2025/03/07 01:50:18 by massrayb         ###   ########.fr       */
+/*   Updated: 2025/03/07 04:03:28 by massrayb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	execute_command(t_data *data, char **env, int flag)
 	{
 		if (flag == 1)
 		{
-			if (data->cmd_1_path == NULL || data->cmd_1[0] == ' ' || data->cmd_1[ft_strlen(data->cmd_1) - 1] == ' ')
+			if (data->cmd_1_path == NULL)
 			(put_cmd_not_found(data->cmd_1), clean_and_exit(data, EXIT_FAILURE));
 			new_fd = open(data->file1, O_RDONLY, 0640);
 			check_open_result(data, new_fd);
@@ -69,7 +69,7 @@ void	execute_command(t_data *data, char **env, int flag)
 		}
 		else if (flag == 2)
 		{
-			if (data->cmd_2_path == NULL || data->cmd_2[0] == ' ' || data->cmd_2[ft_strlen(data->cmd_2) - 1] == ' ')
+			if (data->cmd_2_path == NULL)
 			(put_cmd_not_found(data->cmd_2), clean_and_exit(data, EXIT_FAILURE));
 			new_fd = open(data->file2, O_CREAT | O_WRONLY | O_TRUNC, 0640);
 			check_open_result(data, new_fd);
