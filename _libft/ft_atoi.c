@@ -6,7 +6,7 @@
 /*   By: massrayb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 11:37:13 by massrayb          #+#    #+#             */
-/*   Updated: 2025/03/07 20:00:23 by massrayb         ###   ########.fr       */
+/*   Updated: 2025/03/11 05:04:16 by massrayb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,11 @@ static int	handle_sign(const char *s, int index, int *sign)
 
 static long	handle_numbers(const char *s, int index, int sign)
 {
-	long	tmp;
 	long	res;
 
-	tmp = 0;
 	res = 0;
 	while (s[index] >= '0' && s[index] <= '9')
 	{
-		tmp = res;
 		res *= 10;
 		res += (s[index] - '0');
 		index++;

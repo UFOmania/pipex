@@ -6,7 +6,7 @@
 /*   By: massrayb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 17:44:51 by massrayb          #+#    #+#             */
-/*   Updated: 2025/03/11 04:19:03 by massrayb         ###   ########.fr       */
+/*   Updated: 2025/03/11 05:08:50 by massrayb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,8 +114,8 @@ char	**parse_command(char *single_line, char **env)
 	if (access(cmd_list[0], X_OK) == 0)
 		return (cmd_list);
 	if (ft_strchar(cmd_list[0], '/'))
-		return (ft_printf("pipex : %s: command not found\n", cmd_list[0]), \
-		free_2d_array(cmd_list, 0), NULL);
+		return (ft_printf("pipex : %s: no such file or directory\n", \
+		cmd_list[0]), free_2d_array(cmd_list, 0), NULL);
 	path = generate_path(cmd_list, env);
 	if (!path)
 		return (ft_printf("pipex : %s: command not found\n", \

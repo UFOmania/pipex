@@ -6,7 +6,7 @@
 /*   By: massrayb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 00:04:15 by massrayb          #+#    #+#             */
-/*   Updated: 2025/03/11 04:02:29 by massrayb         ###   ########.fr       */
+/*   Updated: 2025/03/11 05:16:21 by massrayb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,13 @@ void	execute(t_data *data, char **env, int pipe_fd[2])
 	else if (data->id == 0)
 	{
 		if (!config_pipe(pipe_fd, data->file_name, flags, data->index))
-			(free_2d_array(parsed_cmd, 0), exit(EXIT_FAILURE));
+			exit(EXIT_FAILURE);
 		parsed_cmd = parse_command(data->cmd, env);
 		if (!parsed_cmd)
 			(exit(EXIT_FAILURE));
 		execve(parsed_cmd[0], parsed_cmd, 0);
-		free_2d_array(parsed_cmd, 0);
 		p_error();
+		free_2d_array(parsed_cmd, 0);
 		exit(EXIT_FAILURE);
 	}
 }
@@ -80,11 +80,10 @@ t_data	fill_data(char *file_name, char *cmd, int flag)
 	return (data);
 }
 
-void	f(){system("leaks pipex");}
+// void	f(){system("leaks pipex");}
 
 int	main(int ac, char **av, char **env)
 {
-	 atexit(f);
 	t_data	data[2];
 	int		pipe_fd[2];
 
