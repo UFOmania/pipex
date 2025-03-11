@@ -1,23 +1,24 @@
-CFLAGS = -Wall -Wextra -Wall
+CFLAGS = #-fsanitize=address -g3 #-Wall -Wextra -Wall
 NAME = pipex
 
 LIBFT = _libft/libft.a
+
 PRINTF = _printf/libftprintf.a
 
-SRC = src/pipex.c \
-      src/parser.c \
-      src/execute.c \
-      src/clean.c
+SRC =	src/pipex.c \
+		src/parse.c\
+		src/clear.c\
+    
 
 OBJ = $(SRC:.c=.o)
 
 all: libft printf $(NAME)
 
-libft:
-	make -C _libft/
-
 printf:
 	make -C _printf/
+
+libft:
+	make -C _libft/
 
 $(NAME): $(OBJ)
 	cc $(CFLAGS) $(OBJ) $(LIBFT) $(PRINTF) -o $@

@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: massrayb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/01 18:35:57 by massrayb          #+#    #+#             */
-/*   Updated: 2025/03/07 20:18:12 by massrayb         ###   ########.fr       */
+/*   Created: 2025/03/11 01:12:35 by massrayb          #+#    #+#             */
+/*   Updated: 2025/03/11 03:29:21 by massrayb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,36 +15,25 @@
 
 # include "../_libft/libft.h"
 # include "../_printf/ft_printf.h"
-# include <errno.h>
-# include <fcntl.h>
 # include <string.h>
+# include <errno.h>
 # include <unistd.h>
-
-# define FILE_1 1
-# define FILE_2 4
-# define CMD_1 2
-# define CMD_2 3
-
-# define SKIP_PATH 5
-# define ENV_NOT_FOUND "pipex : sed: No such file or directory"
+# include <fcntl.h>
 
 typedef struct s_data
 {
-	char	*cmd_1_path;
-	char	*cmd_2_path;
-	char	**cmd_1_args;
-	char	**cmd_2_args;
-	char	*file1;
-	char	*file2;
+	char	*file_name;
+	char	*cmd;
 	int		state;
-	int		fd[2];
+	int		index;
 	int		id;
-}		t_data;
 
-void	parse_arguments(t_data *data, char **av, char **env);
-char	**get_paths(char **env);
-void	execute_command_1(t_data *data, char **env);
-void	execute_command_2(t_data *data, char **env);
-void	put_std_err(char *msg);
-void	clean_and_exit(t_data *data, int state);
+}			t_data;
+
+
+void	close_pipe(int pipe_fd[2]);
+void	free_2d_array(char **arr, int len);
+char	**parse_command(char *single_line, char **env);
+void	p_error(void);
+
 #endif
