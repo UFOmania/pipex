@@ -2,37 +2,39 @@
 
 static void	handle_quote(char *str, int *i, int *count)
 {
-	while (str[*i] == '\0' && str[(*i)++] != '\'')
-		;
-	(*count)++;
 	(*i)++;
+    while (str[*i] != '\0' && str[*i] != '\'')
+        (*i)++;
+    if (str[*i] == '\'')
+        (*i)++;
+    (*count)++;
 }
 
-#include <libc.h>
-static int	count_commands(char *str)
-{
-	int count;
-	int len;
-	int i;
 
-	i = 0;
-	count = 0;
-	len = ft_strlen(str);
-	while (i < len)
-	{
-		if (str[i] == '\'' && str[i++] != ' ')
-			handle_quote(str, &i, & count);
-		else if (str[i] != ' ' && str[i] != '\'')
-		{
-			while (str[i] != ' ' && str[i] != '\'')
-				i++;
-			count++;
-			i++;
-		}
-		else
-			i++;
-	}
-	return (count);
+static int count_commands(char *str)
+{
+    int count;
+    int len;
+    int i;
+
+    i = 0;
+    count = 0;
+    len = ft_strlen(str);
+    while (i < len)
+    {
+        if (str[i] == '\'')
+            handle_quote(str, &i, &count);
+        else if (str[i] != ' ')
+        {
+            while (i < len && str[i] != ' ' && str[i] != '\'')
+                i++;
+            count++;
+            i++;
+        }
+        else
+            i++;
+    }
+    return (count);
 }
 
 static char	*custom_strdub(char *s, size_t len)
@@ -46,20 +48,26 @@ static char	*custom_strdub(char *s, size_t len)
 	return (res);
 }
 
-static int	get_split_len(char *str)
+static int get_split_len(char *str)
 {
-	int i;
+    int i;
 
-	i = 0;
-	if (str[i] && str[i++] == '\'')
-	{
-		while (str[i] && str[i++] != '\'')
-			;
-		return (i);
-	}
-	while (str[i] && str[i] != ' ')
-		i++;
-	return (i);
+    i = 0;
+    if (str[i] == '\'')
+    {
+        i++; // Skip opening quote
+        while (str[i] != '\0' && str[i] != '\'')
+            i++;
+        if (str[i] == '\'')
+            i++; // Include closing quote
+        return (i); // Total length including quotes
+    }
+    else
+    {
+        while (str[i] != '\0' && str[i] != ' ')
+            i++;
+        return (i);
+    }
 }
 
 static void	free_failed_list(char **list, int len)
@@ -71,10 +79,10 @@ static void	free_failed_list(char **list, int len)
 char	**ft_split2(char *str)
 {
 	int		i;
-	char	**cmd_list;
+	char	**cmd_list = NULL;
 	int		len;
 	int		j;
-	
+
 	cmd_list = malloc((count_commands(str) + 1) * sizeof(char *));
 	if (!cmd_list)
 		return (NULL);
@@ -94,6 +102,8 @@ char	**ft_split2(char *str)
 			i += len;
 		}
 	}
+	if (j == 0)
+		return (free(cmd_list), NULL);
 	cmd_list[j] = NULL;
 	return cmd_list;
 }
