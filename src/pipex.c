@@ -6,7 +6,7 @@
 /*   By: massrayb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 00:04:15 by massrayb          #+#    #+#             */
-/*   Updated: 2025/03/11 05:16:21 by massrayb         ###   ########.fr       */
+/*   Updated: 2025/03/11 23:22:55 by massrayb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	execute(t_data *data, char **env, int pipe_fd[2])
 		parsed_cmd = parse_command(data->cmd, env);
 		if (!parsed_cmd)
 			(exit(EXIT_FAILURE));
-		execve(parsed_cmd[0], parsed_cmd, 0);
+		execv(parsed_cmd[0], parsed_cmd);
 		p_error();
 		free_2d_array(parsed_cmd, 0);
 		exit(EXIT_FAILURE);
