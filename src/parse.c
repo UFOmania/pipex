@@ -6,7 +6,7 @@
 /*   By: massrayb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 17:44:51 by massrayb          #+#    #+#             */
-/*   Updated: 2025/03/13 00:43:44 by massrayb         ###   ########.fr       */
+/*   Updated: 2025/03/13 19:46:49 by massrayb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,43 +21,10 @@ void	put_2d_arr(char **arr) //
 	}
 }
 
-/*
-static char	**extract_cmd_from_path(char **old_cmd_list)
-{
-	char	**new_cmd_list;
-	int		i;
-
-	i = -1;
-	while (old_cmd_list[++i])
-		;
-	new_cmd_list = malloc(sizeof(char *) * (i + 2));
-	if (!new_cmd_list)
-		return (ft_printf("pipex: error: %s\n", strerror(errno)), free_2d_array(old_cmd_list, 0), NULL);
-	new_cmd_list[0] = ft_strdup(old_cmd_list[0]);
-	if (!new_cmd_list[0])
-		return (ft_printf("pipex: error: %s\n", strerror(errno)), free(new_cmd_list), free_2d_array(old_cmd_list, 0), NULL);
-	new_cmd_list[1] = ft_strdup(ft_strrchr(old_cmd_list[0], '/') + 1);
-	if (!new_cmd_list[1])
-		return (ft_printf("pipex: error: %s\n", strerror(errno)),  free_2d_array(new_cmd_list, 1), free_2d_array(old_cmd_list, 0), NULL);
-	i = 0;
-	while (old_cmd_list[++i])
-	{
-		new_cmd_list[i + 1] = ft_strdup(old_cmd_list[i]);
-		if (!new_cmd_list[i + 1])
-			return (ft_printf("pipex: error: %s\n", strerror(errno)), free_2d_array(new_cmd_list, i + 1), free_2d_array(old_cmd_list, 0), NULL);
-	}
-	new_cmd_list[i + 1] = NULL;
-	return ( free_2d_array(old_cmd_list, 0), new_cmd_list);
-}
-*/
-//-----------------------------------------------
-//-----------------------------------------------
-
 static char	**extract_env_list(char **env)
 {
 	int		i;
 	char	**env_list;
-	char	*first_path;
 
 	env_list = NULL;
 	i = -1;
@@ -74,7 +41,7 @@ static char	**extract_env_list(char **env)
 	return (env_list);
 }
 
-static char	*generate_path(char **cmd, char **env, int pipe_fd[2])
+static char	*generate_path(char **cmd, char **env)
 {
 	char	**env_list;
 	char	*path;
@@ -120,7 +87,7 @@ int	trim_single_quote(char **cmd_lst)
 	return (1);
 }
 
-char	**parse_command(char *single_line, char **env, int pipe_fd[2])
+char	**parse_command(char *single_line, char **env)
 {
 	char	**cmd_list;
 	char	*path;
@@ -139,7 +106,7 @@ char	**parse_command(char *single_line, char **env, int pipe_fd[2])
 	if (ft_strchar(cmd_list[0], '/'))
 		return (ft_printf("pipex : %s: no such file or directory\n", \
 		cmd_list[0]), free_2d_array(cmd_list, 0), NULL);
-	path = generate_path(cmd_list, env, pipe_fd);
+	path = generate_path(cmd_list, env);
 	if (!path)
 		return (ft_printf("pipex : %s: command not found\n", \
 		cmd_list[0]), free_2d_array(cmd_list, 0), NULL);

@@ -1,5 +1,5 @@
 CC = cc
-# CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
+CFLAGS = -Wall -Wextra -Werror #-fsanitize=address -g3
 AR = ar r
 RM = rm -f
 SRC = 	ft_atoi.c\
@@ -37,6 +37,7 @@ SRC = 	ft_atoi.c\
 		ft_tolower.c\
 		ft_toupper.c\
 		ft_split2.c\
+		ft_free_2d_arr.c\
 
 		
 OBJ = $(SRC:.c=.o)

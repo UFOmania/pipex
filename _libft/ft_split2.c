@@ -6,7 +6,7 @@
 /*   By: massrayb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 00:03:05 by massrayb          #+#    #+#             */
-/*   Updated: 2025/03/13 00:41:24 by massrayb         ###   ########.fr       */
+/*   Updated: 2025/03/13 19:43:39 by massrayb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,13 +81,6 @@ static int	get_split_len(char *str)
 	}
 }
 
-static void	free_failed_list(char **list, int len)
-{
-	while (len-- >= 0)
-		free(list[len]);
-	free(list);
-}
-
 char	**ft_split2(char *str)
 {
 	int		i;
@@ -106,7 +99,7 @@ char	**ft_split2(char *str)
 		{
 			len = get_split_len(str + i);
 			cmd_list[j] = custom_strdub(str + i, len);
-			if (!cmd_list[j])
+			if (!cmd_list)
 				return (free_failed_list(cmd_list, j), NULL);
 			j++;
 			i += len;
@@ -114,8 +107,6 @@ char	**ft_split2(char *str)
 		else
 			i++;
 	}
-	// if (j == 0)
-	// 	return (free(cmd_list), NULL);
 	return (cmd_list[j] = NULL, cmd_list);
 }
 
