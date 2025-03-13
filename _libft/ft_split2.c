@@ -1,40 +1,51 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_split2.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: massrayb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/13 00:03:05 by massrayb          #+#    #+#             */
+/*   Updated: 2025/03/13 00:41:24 by massrayb         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
 static void	handle_quote(char *str, int *i, int *count)
 {
 	(*i)++;
-    while (str[*i] != '\0' && str[*i] != '\'')
-        (*i)++;
-    if (str[*i] == '\'')
-        (*i)++;
-    (*count)++;
+	while (str[*i] != '\0' && str[*i] != '\'')
+		(*i)++;
+	if (str[*i] == '\'')
+		(*i)++;
+	(*count)++;
 }
 
-
-static int count_commands(char *str)
+static int	count_commands(char *str)
 {
-    int count;
-    int len;
-    int i;
+	int	count;
+	int	len;
+	int	i;
 
-    i = 0;
-    count = 0;
-    len = ft_strlen(str);
-    while (i < len)
-    {
-        if (str[i] == '\'')
-            handle_quote(str, &i, &count);
-        else if (str[i] != ' ')
-        {
-            while (i < len && str[i] != ' ' && str[i] != '\'')
-                i++;
-            count++;
-            i++;
-        }
-        else
-            i++;
-    }
-    return (count);
+	i = 0;
+	count = 0;
+	len = ft_strlen(str);
+	while (i < len)
+	{
+		if (str[i] == '\'')
+			handle_quote(str, &i, &count);
+		else if (str[i] != ' ')
+		{
+			while (i < len && str[i] != ' ' && str[i] != '\'')
+				i++;
+			count++;
+			i++;
+		}
+		else
+			i++;
+	}
+	return (count);
 }
 
 static char	*custom_strdub(char *s, size_t len)
@@ -48,38 +59,39 @@ static char	*custom_strdub(char *s, size_t len)
 	return (res);
 }
 
-static int get_split_len(char *str)
+static int	get_split_len(char *str)
 {
-    int i;
+	int	i;
 
-    i = 0;
-    if (str[i] == '\'')
-    {
-        i++; // Skip opening quote
-        while (str[i] != '\0' && str[i] != '\'')
-            i++;
-        if (str[i] == '\'')
-            i++; // Include closing quote
-        return (i); // Total length including quotes
-    }
-    else
-    {
-        while (str[i] != '\0' && str[i] != ' ')
-            i++;
-        return (i);
-    }
+	i = 0;
+	if (str[i] == '\'')
+	{
+		i++;
+		while (str[i] != '\0' && str[i] != '\'')
+			i++;
+		if (str[i] == '\'')
+			i++;
+		return (i);
+	}
+	else
+	{
+		while (str[i] != '\0' && str[i] != ' ')
+			i++;
+		return (i);
+	}
 }
 
 static void	free_failed_list(char **list, int len)
 {
 	while (len-- >= 0)
 		free(list[len]);
-	free(  list);
+	free(list);
 }
+
 char	**ft_split2(char *str)
 {
 	int		i;
-	char	**cmd_list = NULL;
+	char	**cmd_list;
 	int		len;
 	int		j;
 
@@ -90,9 +102,7 @@ char	**ft_split2(char *str)
 	i = 0;
 	while (str[i])
 	{
-		while (str[i] == ' ')
-			i++;
-		if (str[i])
+		if (str[i] && str[i] != ' ')
 		{
 			len = get_split_len(str + i);
 			cmd_list[j] = custom_strdub(str + i, len);
@@ -101,11 +111,12 @@ char	**ft_split2(char *str)
 			j++;
 			i += len;
 		}
+		else
+			i++;
 	}
-	if (j == 0)
-		return (free(cmd_list), NULL);
-	cmd_list[j] = NULL;
-	return cmd_list;
+	// if (j == 0)
+	// 	return (free(cmd_list), NULL);
+	return (cmd_list[j] = NULL, cmd_list);
 }
 
 // int main (int ac, char **av)

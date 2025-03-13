@@ -6,7 +6,7 @@
 /*   By: massrayb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 01:12:35 by massrayb          #+#    #+#             */
-/*   Updated: 2025/03/11 03:29:21 by massrayb         ###   ########.fr       */
+/*   Updated: 2025/03/13 00:17:09 by massrayb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,9 @@ typedef struct s_data
 
 }			t_data;
 
-
 void	close_pipe(int pipe_fd[2]);
 void	free_2d_array(char **arr, int len);
-char	**parse_command(char *single_line, char **env);
+char	**parse_command(char *single_line, char **env, int pipe_fd[2]);
 void	p_error(void);
 
 #endif

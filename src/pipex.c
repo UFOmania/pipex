@@ -6,7 +6,7 @@
 /*   By: massrayb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 00:04:15 by massrayb          #+#    #+#             */
-/*   Updated: 2025/03/11 23:22:55 by massrayb         ###   ########.fr       */
+/*   Updated: 2025/03/13 00:38:07 by massrayb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	execute(t_data *data, char **env, int pipe_fd[2])
 	{
 		if (!config_pipe(pipe_fd, data->file_name, flags, data->index))
 			exit(EXIT_FAILURE);
-		parsed_cmd = parse_command(data->cmd, env);
+		parsed_cmd = parse_command(data->cmd, env, pipe_fd);
 		if (!parsed_cmd)
 			(exit(EXIT_FAILURE));
 		execv(parsed_cmd[0], parsed_cmd);
