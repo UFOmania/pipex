@@ -6,7 +6,7 @@
 /*   By: massrayb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 01:12:35 by massrayb          #+#    #+#             */
-/*   Updated: 2025/03/13 19:45:55 by massrayb         ###   ########.fr       */
+/*   Updated: 2025/03/14 07:35:10 by massrayb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,12 @@ typedef struct s_data
 	int		state;
 	int		index;
 	int		id;
-
+	char	**envp;
 }			t_data;
 
 void	close_pipe(int pipe_fd[2]);
-void	free_2d_array(char **arr, int len);
+void	free_2d_array(char **arr);
+char	**extract_env_list(char **env);
 char	**parse_command(char *single_line, char **env);
 void	p_error(void);
 

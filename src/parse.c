@@ -6,7 +6,7 @@
 /*   By: massrayb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 17:44:51 by massrayb          #+#    #+#             */
-/*   Updated: 2025/03/13 19:46:49 by massrayb         ###   ########.fr       */
+/*   Updated: 2025/03/14 07:35:45 by massrayb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	put_2d_arr(char **arr) //
 	}
 }
 
-static char	**extract_env_list(char **env)
+char	**extract_env_list(char **env)
 {
 	int		i;
 	char	**env_list;
@@ -41,33 +41,31 @@ static char	**extract_env_list(char **env)
 	return (env_list);
 }
 
-static char	*generate_path(char **cmd, char **env)
+static char	*generate_path(char **cmd, char **env_list)
 {
-	char	**env_list;
 	char	*path;
 	char	*tmp;
 	int		i;
 
-	env_list = extract_env_list(env);
 	if (!env_list)
 		(ft_printf("pipex: %s: command not found\n", cmd[0]), \
-		free_2d_array(cmd, 0), exit(EXIT_FAILURE));
+		free_2d_array(cmd), exit(EXIT_FAILURE));
 	i = -1;
 	while (env_list[++i])
 	{
 		path = ft_strjoin(env_list[i], "/");
 		if (!path)
-			return (free_2d_array(env_list, 0), p_error(), NULL);
+			return (free_2d_array(env_list), p_error(), NULL);
 		tmp = path;
 		path = ft_strjoin(path, cmd[0]);
 		free(tmp);
 		if (!path)
-			return (free_2d_array(env_list, 0), p_error(), NULL);
+			return (free_2d_array(env_list), p_error(), NULL);
 		if (access(path, X_OK) == 0)
-			return (free_2d_array(env_list, 0), path);
+			return (path);
 		free(path);
 	}
-	return (free_2d_array(env_list, 0), NULL);
+	return (free_2d_array(env_list), NULL);
 }
 
 int	trim_single_quote(char **cmd_lst)
@@ -97,19 +95,19 @@ char	**parse_command(char *single_line, char **env)
 		(p_error(), exit(EXIT_FAILURE));
 	if (!cmd_list[0])
 		(ft_printf("pipex: %s: command not found\n", single_line), \
-		free_2d_array(cmd_list, 0), exit(EXIT_FAILURE));
+		free_2d_array(cmd_list), exit(EXIT_FAILURE));
 	if (!trim_single_quote(cmd_list))
-		(free_2d_array(cmd_list, 0), p_error(), exit(EXIT_FAILURE));
+		(free_2d_array(cmd_list), p_error(), exit(EXIT_FAILURE));
 	if ((cmd_list[0][0] == '.' || cmd_list[0][0] == '/' ) \
 	&& access(cmd_list[0], X_OK) == 0)
 		return (cmd_list);
 	if (ft_strchar(cmd_list[0], '/'))
 		return (ft_printf("pipex : %s: no such file or directory\n", \
-		cmd_list[0]), free_2d_array(cmd_list, 0), NULL);
+		cmd_list[0]), free_2d_array(cmd_list), NULL);
 	path = generate_path(cmd_list, env);
 	if (!path)
 		return (ft_printf("pipex : %s: command not found\n", \
-		cmd_list[0]), free_2d_array(cmd_list, 0), NULL);
+		cmd_list[0]), free_2d_array(cmd_list), NULL);
 	free(cmd_list[0]);
 	cmd_list[0] = path;
 	return (cmd_list);
@@ -129,5 +127,5 @@ char	**parse_command(char *single_line, char **env)
 // 	while (c[++i])
 // 		ft_printf("%s\n", c[i]);
 // 	// execve(c[0], c, 0);
-// 	// free_2d_array(c, 0);
+// 	// free_2d_array(c);
 // }

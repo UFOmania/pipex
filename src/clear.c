@@ -6,20 +6,19 @@
 /*   By: massrayb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 23:03:06 by massrayb          #+#    #+#             */
-/*   Updated: 2025/03/11 01:10:11 by massrayb         ###   ########.fr       */
+/*   Updated: 2025/03/14 07:36:42 by massrayb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	free_2d_array(char **arr, int len)
+void	free_2d_array(char **arr)
 {
-	if (len == 0)
-		while (arr[len])
-			free(arr[len++]);
-	else
-		while (--len >= 0)
-			free(arr[len]);
+	int	i;
+
+	i = -1;
+	while (arr[++i])
+		free(arr[i]);
 	free(arr);
 }
 

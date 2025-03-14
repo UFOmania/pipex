@@ -1,4 +1,4 @@
-CFLAGS = -Wall -Wextra -Wall #-fsanitize=address -g3
+CFLAGS = -Wall -Wextra -Wall
 NAME = pipex
 
 LIBFT = _libft/libft.a
