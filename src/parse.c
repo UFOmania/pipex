@@ -6,13 +6,13 @@
 /*   By: massrayb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 17:44:51 by massrayb          #+#    #+#             */
-/*   Updated: 2025/03/14 07:35:45 by massrayb         ###   ########.fr       */
+/*   Updated: 2025/03/15 00:02:12 by massrayb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	put_2d_arr(char **arr) //
+void	put_2d_arr(char **arr)
 {
 	while (*arr)
 	{
@@ -92,12 +92,13 @@ char	**parse_command(char *single_line, char **env)
 
 	cmd_list = ft_split2(single_line);
 	if (!cmd_list)
-		(p_error(), exit(EXIT_FAILURE));
+		(p_error(), free_2d_array(env), exit(EXIT_FAILURE));
 	if (!cmd_list[0])
 		(ft_printf("pipex: %s: command not found\n", single_line), \
-		free_2d_array(cmd_list), exit(EXIT_FAILURE));
+		free_2d_array(cmd_list), free_2d_array(env), exit(EXIT_FAILURE));
 	if (!trim_single_quote(cmd_list))
-		(free_2d_array(cmd_list), p_error(), exit(EXIT_FAILURE));
+		(p_error(), free_2d_array(cmd_list), free_2d_array(env), \
+		exit(EXIT_FAILURE));
 	if ((cmd_list[0][0] == '.' || cmd_list[0][0] == '/' ) \
 	&& access(cmd_list[0], X_OK) == 0)
 		return (cmd_list);
