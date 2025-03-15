@@ -6,7 +6,7 @@
 /*   By: massrayb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 00:03:05 by massrayb          #+#    #+#             */
-/*   Updated: 2025/03/13 19:43:39 by massrayb         ###   ########.fr       */
+/*   Updated: 2025/03/15 21:11:54 by massrayb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,17 +109,3 @@ char	**ft_split2(char *str)
 	}
 	return (cmd_list[j] = NULL, cmd_list);
 }
-
-// int main (int ac, char **av)
-// {
-// 	if (ac == 1)
-// 		return 1;
-// 	int i = -1;
-// 	char **c = ft_split2(av[1]);
-// 		printf("hh\n");
-
-// 	while (c[++i])
-// 	{
-// 		printf("%s\n", c[i]);
-// 	}
-// }

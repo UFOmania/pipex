@@ -23,7 +23,7 @@ libft:
 $(NAME): $(OBJ)
 	cc $(CFLAGS) $(OBJ) $(LIBFT) $(PRINTF) -o $@
 
-src/%.o: src/%.c src/pipex.h
+%.o: %.c src/pipex.h
 	cc $(CFLAGS) -c $< -o $@
 
 clean:

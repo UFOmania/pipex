@@ -6,7 +6,7 @@
 /*   By: massrayb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 01:12:35 by massrayb          #+#    #+#             */
-/*   Updated: 2025/03/14 07:35:10 by massrayb         ###   ########.fr       */
+/*   Updated: 2025/03/15 21:10:24 by massrayb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 # include "../_printf/ft_printf.h"
 # include <string.h>
 # include <errno.h>
-# include <unistd.h>
 # include <fcntl.h>
 
 typedef struct s_data
@@ -33,7 +32,7 @@ typedef struct s_data
 void	close_pipe(int pipe_fd[2]);
 void	free_2d_array(char **arr);
 char	**extract_env_list(char **env);
-char	**parse_command(char *single_line, char **env);
+char	**parse_command(t_data *data, char **env);
 void	p_error(void);
 
 #endif
