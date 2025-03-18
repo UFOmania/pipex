@@ -6,12 +6,12 @@
 #    By: massrayb <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/19 19:29:24 by massrayb          #+#    #+#              #
-#    Updated: 2025/03/08 00:57:58 by massrayb         ###   ########.fr        #
+#    Updated: 2025/03/17 19:12:56 by massrayb         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = 	cc
-FLAGS =	-Wall -Werror -Wextra
+fdS =	-Wall -Werror -Wextra
 AR = 	ar r
 
 SRC = 	ft_printf.c\
@@ -35,7 +35,7 @@ $(NAME): $(OBJ)
 	$(AR) $@ $(OBJ)
 
 %.o:	%.c ft_printf.h
-	$(CC) $(FLAGS) -c $<
+	$(CC) $(fdS) -c $<
 
 clean:
 	rm -f $(OBJ) $(NAME)

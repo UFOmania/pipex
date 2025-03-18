@@ -1,37 +1,33 @@
-CFLAGS = -Wall -Wextra -Wall -fsanitize=address -g3
-NAME = pipex
+CFLAGS = -Wall -Wextra -Werror
 
-LIBFT = _libft/libft.a
-
-PRINTF = _printf/libftprintf.a
-
-SRC =	src/pipex.c \
-		src/parse.c\
-		src/clear.c\
-    
+SRC =	pipex.c\
+		parse.c\
+		utils.c\
+		error_handler.c\
+		env_handler.c\
+		config_pipe.c\
+		child.c
 
 OBJ = $(SRC:.c=.o)
 
-all: libft printf $(NAME)
-
-printf:
-	make -C _printf/
+all: libft printf $(OBJ)
+	cc $(CFLAGS) $(OBJ) _libft/libft.a _printf/libftprintf.a -o pipex
 
 libft:
 	make -C _libft/
 
-$(NAME): $(OBJ)
-	cc $(CFLAGS) $(OBJ) $(LIBFT) $(PRINTF) -o $@
+printf:
+	make -C _printf/
 
-%.o: %.c src/pipex.h
+%.o: %.c pipex.h
 	cc $(CFLAGS) -c $< -o $@
 
 clean:
-	make clean -C _libft
-	make clean -C _printf
-	rm -rf $(OBJ)
+	rm -f $(OBJ)
+	make -C _libft/ clean
+	make -C _printf/ clean
 
 fclean: clean
-	rm -f $(NAME) $(LIBFT) $(PRINTF)
+	rm -f pipex
 
 re: fclean all

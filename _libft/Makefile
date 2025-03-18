@@ -1,5 +1,5 @@
 CC = cc
-CFLAGS = -Wall -Wextra -Werror #-fsanitize=address -g3
+CfdS = -Wall -Wextra -Werror #-fsanitize=address -g3
 AR = ar r
 RM = rm -f
 SRC = 	ft_atoi.c\
@@ -50,7 +50,7 @@ $(NAME): $(OBJ)
 	$(AR) $(NAME) $(OBJ)
 	
 %.o: %.c libft.h
-	$(CC) $(CFLAGS) -c $<
+	$(CC) $(CfdS) -c $<
 
 clean:
 	$(RM) $(OBJ) $(NAME)

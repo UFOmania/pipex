@@ -1,28 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   clear.c                                            :+:      :+:    :+:   */
+/*   error_handler.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: massrayb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/09 23:03:06 by massrayb          #+#    #+#             */
-/*   Updated: 2025/03/14 07:36:42 by massrayb         ###   ########.fr       */
+/*   Created: 2025/03/16 17:09:08 by massrayb          #+#    #+#             */
+/*   Updated: 2025/03/17 01:11:30 by massrayb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	free_2d_array(char **arr)
+void	p_error(char *msg)
 {
-	int	i;
-
-	i = -1;
-	while (arr[++i])
-		free(arr[i]);
-	free(arr);
-}
-
-void	p_error(void)
-{
-	ft_printf("pipex: error: %s\n", strerror(errno));
+	if (!msg)
+		ft_printf("pipex: error: %s\n", strerror(errno));
+	else
+		ft_printf("pipex: %s: %s\n", msg, strerror(errno));
 }
